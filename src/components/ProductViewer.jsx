@@ -5,13 +5,14 @@ import { fetchProduct, nextProduct, prevProduct } from '../product/productSlice'
 const ProductViewer = () => {
   const dispatch = useDispatch();
   const { product, status, error, currentProductId } = useSelector((state) => state.product);
+  const theme = useSelector((state) => state.theme.theme);
 
   React.useEffect(() => {
     dispatch(fetchProduct(currentProductId));
   }, [dispatch, currentProductId]);
 
   return (
-    <div className="product-viewer">
+    <div className={`product-viewer ${theme}`}>
       {status === 'loading' && <p>Loading...</p>}
       {status === 'failed' && <p>{error}</p>}
       {product && (
